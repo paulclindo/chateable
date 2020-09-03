@@ -47,18 +47,21 @@ function PublicRoute({ children, authenticated, ...rest }) {
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     auth().onAuthStateChanged((user) => {
       if (user) {
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
       }
+      setLoading(false);
     });
   }, []);
 
+  if (loading) return <h1>loading</h1>;
   return (
     <Router>
       <Switch>
